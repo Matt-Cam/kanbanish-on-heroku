@@ -4,6 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
+    "start": "cd client/kanban-react && npm install && npm run build && cd ../.. && node server",
+    "dev": "node server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
