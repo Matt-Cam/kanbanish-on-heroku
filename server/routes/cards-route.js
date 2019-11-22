@@ -42,7 +42,7 @@ router.route('/add').post((req, res) => {
   const newCard = new Card({ title, cardNumber, list });
   newCard
     .save()
-    .then(() => res.json('User added!'))
+    .then(() => res.json('Card added!'))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
@@ -53,5 +53,7 @@ router.delete('/', (req, res, next) => {
     else res.send('Succesfully deleted all cards');
   });
 });
+
+// DELETE ONE CARD
 
 module.exports = router;
