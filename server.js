@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('./client/kanban-react/build'));
-app.use('/api/cards/', cardsRouter);
+//app.use('/api/cards/', cardsRouter);
 
 app.get('/*', (req, res) => {
   res.sendFile('index.html', {
