@@ -1,17 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from './Card.js';
 import AddCard from './AddCard.js';
-import PropTypes from 'prop-types';
-import { LoadingSpinner } from './LoadingSpinner';
 import axios from 'axios';
+import CardsDataWrapper from '../data/CardsDataWrapper.js';
 
 // Container component to hold all of the cards
-const CardsContainer = ({ cards, fetchCards, error, pending }) => {
-  const [testLocalState, setTestLocalState] = useState([]);
-  useEffect(() => {
-    fetchCards();
-  }, []);
-
+const CardsContainer = () => {
   const testApiGetCall = () => {
     axios
       .get('/api/cards/')
@@ -31,39 +25,37 @@ const CardsContainer = ({ cards, fetchCards, error, pending }) => {
       .catch(alert);
   };
 
-  if (pending) return <LoadingSpinner></LoadingSpinner>;
-  else
-    return (
-      <React.Fragment>
-        <button onClick={testApiGetCall} className='button mc-btn-secondary'>
-          Test Api GET /api/cards/
-        </button>
-        <button onClick={testApiPostCall} className='button mc-btn-secondary'>
-          Test POST /api/cards/seed
-        </button>
-        <button onClick={testApiDeleteCall} className='button mc-btn-secondary'>
-          Test DELETE /api/cards/
-        </button>
+  return (
+    <React.Fragment>
+      <button onClick={testApiGetCall} className='button mc-btn-secondary'>
+        Test Api GET /api/cards/
+      </button>
+      <button onClick={testApiPostCall} className='button mc-btn-secondary'>
+        Test POST /api/cards/seed
+      </button>
+      <button onClick={testApiDeleteCall} className='button mc-btn-secondary'>
+        Test DELETE /api/cards/
+      </button>
 
-        <div className='cards-container'>
-          {cards.map((card, index) => {
-            return <Card key={index} {...card}></Card>;
-          })}
-          <AddCard></AddCard>
-        </div>
-      </React.Fragment>
-    );
-};
-
-// Define the proptypes for CardsContainer component
-CardsContainer.propTypes = {
-  cards: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      list: PropTypes.array.isRequired
-    }).isRequired
-  ).isRequired
+      <div className='cards-container'>
+        <CardsDataWrapper
+          render={cards => {
+            return cards.map(card => {
+              return (
+                <Card
+                  key={card.id}
+                  id={card.id}
+                  list={card.list}
+                  title={card.title}
+                ></Card>
+              );
+            });
+          }}
+        ></CardsDataWrapper>
+        <AddCard></AddCard>
+      </div>
+    </React.Fragment>
+  );
 };
 
 export default CardsContainer;
