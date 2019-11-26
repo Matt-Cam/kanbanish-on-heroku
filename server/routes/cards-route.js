@@ -33,21 +33,41 @@ router.post('/seed', async (req, res, next) => {
   );
 });
 
-router.put('/removeListItem/:cardId/:listItem', (req, res) => {
-  Card.findById(req.params.cardId, (error, doc) => {
-    if (error) res.send('error', 500);
-    else {
-      doc.list.splice(req.params.listItem, 1);
-      doc.save(err => {
-        if (err) {
-          console.log('mc error', error);
-          res.send('mc error', 500);
-        } else {
-          res.send('doc: ' + doc);
-        }
-      });
-    }
-  });
+// DELETE list item from card
+// returns success message along with the newly updated card
+router.post('/removeListItem/:cardId/:listItem', (req, res) => {
+  Card.findById(req.params.cardId)
+    .then(card => {
+      card.list.splice(req.params.listItem, 1);
+      card
+        .save()
+        .then(() =>
+          res.json({
+            message: `Succesfully deleted item ${req.params.listItem} from card # ${req.params.cardId}`,
+            card: card
+          })
+        )
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
+});
+
+// ADD list item to card
+router.post('/addListItem/:cardId/', (req, res) => {
+  Card.findById(req.params.cardId)
+    .then(card => {
+      card.list.push(req.body.listItem);
+      card
+        .save()
+        .then(() => {
+          res.json({
+            message: 'Succesfully added new item to db',
+            card: card
+          });
+        })
+        .catch(err => res.status(400).json('Error: ' + err));
+    })
+    .catch(err => res.status(400).json('Error: ' + err));
 });
 
 /**

@@ -12,6 +12,19 @@ function fetchCardsFromServer() {
   return response;
 }
 
+// cardId: the mongo id for that card
+// itemNum: index of the item you want to delete
+function removeCardItemFromServer(cardId, itemNum) {
+  const response = fetch(`/api/cards/removeListItem/${cardId}/${itemNum}`, {
+    method: 'post'
+  })
+    .then(res => res.json())
+    .catch(er => {
+      console.log('mc error: ' + er);
+    });
+  return response;
+}
+
 function addCardListItemToServer(title, cardNumber, list) {
   console.log('adding card to API');
   return function(dispatch) {
@@ -26,4 +39,4 @@ function addCardListItemToServer(title, cardNumber, list) {
   };
 }
 
-export { fetchCardsFromServer };
+export { fetchCardsFromServer, removeCardItemFromServer };

@@ -5,7 +5,7 @@ import {
   FETCH_CARDS_SUCCESS,
   FETCH_CARDS_PENDING
 } from '../constants/action-types';
-import { fetchCardsFromServer } from './api-calls';
+import { fetchCardsFromServer, removeCardItemFromServer } from './api-calls';
 
 export function fetchCards() {
   return async function(dispatch) {
@@ -29,7 +29,22 @@ export function addCardListItem(payload) {
 
 // Payload should be something like {cardId, itemIndex}
 export function removeCardListItem(cardId, itemIndex) {
-  return { type: REMOVE_CARD_LIST_ITEM, cardId, itemIndex };
+  return async function(dispatch) {
+    try {
+      const removedItemResponse = await removeCardItemFromServer(
+        cardId,
+        itemIndex
+      );
+      console.log(removedItemResponse);
+      dispatch({
+        type: REMOVE_CARD_LIST_ITEM,
+        cardId: removedItemResponse.card.cardNumber,
+        itemIndex
+      });
+    } catch (er) {
+      console.log('mc err: ' + er);
+    }
+  };
 }
 
 export function fetchCardsError(error) {

@@ -47,6 +47,7 @@ function cardsReducer(state = initialState, action) {
       };
 
     case REMOVE_CARD_LIST_ITEM:
+      console.log(action);
       return {
         ...state,
         cards: state.cards.map((card, index) => {

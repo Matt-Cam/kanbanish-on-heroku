@@ -21,7 +21,7 @@ const buttonStyle = {
   margin: '5px'
 };
 
-const Card = ({ id, title, list, removeItem, moveItem, addItem }) => {
+const Card = ({ id, _id, title, list, removeItem, moveItem, addItem }) => {
   // Local state to hold modal visibility
   const [modalVisible, toggleModalVisible] = useState(false);
 
@@ -54,7 +54,7 @@ const Card = ({ id, title, list, removeItem, moveItem, addItem }) => {
                   </span>
                   <button
                     style={buttonStyle}
-                    onClick={() => removeItem(id, index)}
+                    onClick={() => removeItem(_id, index)}
                   >
                     x
                   </button>
