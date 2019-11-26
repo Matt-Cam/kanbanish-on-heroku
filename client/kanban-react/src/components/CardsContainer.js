@@ -37,6 +37,7 @@ const CardsContainer = ({ render, cards, pending, error, fetchCards }) => {
           return (
             <Card
               key={card._id}
+              _id={card._id}
               id={card.cardNumber}
               list={card.list}
               title={card.title}

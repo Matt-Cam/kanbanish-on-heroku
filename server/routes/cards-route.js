@@ -33,6 +33,23 @@ router.post('/seed', async (req, res, next) => {
   );
 });
 
+router.put('/removeListItem/:cardId/:listItem', (req, res) => {
+  Card.findById(req.params.cardId, (error, doc) => {
+    if (error) res.send('error', 500);
+    else {
+      doc.list.splice(req.params.listItem, 1);
+      doc.save(err => {
+        if (err) {
+          console.log('mc error', error);
+          res.send('mc error', 500);
+        } else {
+          res.send('doc: ' + doc);
+        }
+      });
+    }
+  });
+});
+
 /**
  * URL: localhost:5001/api/Cards/add
  * Description: Used to add single card
@@ -53,7 +70,5 @@ router.delete('/', (req, res, next) => {
     else res.send('Succesfully deleted all cards');
   });
 });
-
-// DELETE ONE CARD
 
 module.exports = router;
