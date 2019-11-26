@@ -1,31 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
 import Card from './Card.js';
 import AddCard from './AddCard.js';
+import { LoadingSpinner } from './LoadingSpinner';
 import axios from 'axios';
-import CardsDataWrapper from '../data/CardsDataWrapper.js';
+import {
+  getCards,
+  getCardsPending,
+  getCardsError
+} from '../redux/selectors/index';
+import fetchCards from '../redux/actions/fetchCards';
 
 // Container component to hold all of the cards
-const CardsContainer = () => {
-  const testApiGetCall = () => {
-    axios
-      .get('/api/cards/')
-      .then(res => console.log(res.data))
-      .catch(alert);
-  };
-  const testApiPostCall = () => {
-    axios
-      .post('/api/cards/seed', {})
-      .then(res => console.log(res.data))
-      .catch(alert);
-  };
-  const testApiDeleteCall = () => {
-    axios
-      .delete('/api/cards/', {})
-      .then(res => console.log(res.data))
-      .catch(alert);
-  };
+const CardsContainer = ({ render, cards, pending, error, fetchCards }) => {
+  // fetch cards on load
+  useEffect(() => {
+    fetchCards();
+  }, []);
 
-  return (
+  return pending ? (
+    <LoadingSpinner></LoadingSpinner>
+  ) : (
     <React.Fragment>
       <button onClick={testApiGetCall} className='button mc-btn-secondary'>
         Test Api GET /api/cards/
@@ -38,24 +33,49 @@ const CardsContainer = () => {
       </button>
 
       <div className='cards-container'>
-        <CardsDataWrapper
-          render={cards => {
-            return cards.map(card => {
-              return (
-                <Card
-                  key={card.id}
-                  id={card.id}
-                  list={card.list}
-                  title={card.title}
-                ></Card>
-              );
-            });
-          }}
-        ></CardsDataWrapper>
+        {cards.map(card => {
+          return (
+            <Card
+              key={card._id}
+              id={card.cardNumber}
+              list={card.list}
+              title={card.title}
+            ></Card>
+          );
+        })}
+
         <AddCard></AddCard>
       </div>
     </React.Fragment>
   );
 };
+const mapStateToProps = state => ({
+  cards: getCards(state),
+  pending: getCardsPending(state),
+  error: getCardsError(state)
+});
 
-export default CardsContainer;
+const mapDispatchToProps = dispatch => ({
+  fetchCards: () => dispatch(fetchCards())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
+
+const testApiGetCall = () => {
+  axios
+    .get('/api/cards/')
+    .then(res => console.log(res.data))
+    .catch(alert);
+};
+const testApiPostCall = () => {
+  axios
+    .post('/api/cards/seed', {})
+    .then(res => console.log(res.data))
+    .catch(alert);
+};
+const testApiDeleteCall = () => {
+  axios
+    .delete('/api/cards/', {})
+    .then(res => console.log(res.data))
+    .catch(alert);
+};

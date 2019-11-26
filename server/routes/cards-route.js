@@ -7,7 +7,7 @@ const Card = require('../models/Card');
  */
 router.get('/', (req, res, next) => {
   Card.find()
-    .then(cards => res.status(200).json(cards))
+    .then(cards => res.status(200).json({ cards: cards }))
     .catch(err => res.status(400).json('Error: ' + err));
 });
 
