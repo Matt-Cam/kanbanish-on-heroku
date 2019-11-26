@@ -9,7 +9,7 @@ import {
   getCardsPending,
   getCardsError
 } from '../redux/selectors/index';
-import fetchCards from '../redux/actions/fetchCards';
+import { fetchCards } from '../redux/actions/index';
 
 // Container component to hold all of the cards
 const CardsContainer = ({ render, cards, pending, error, fetchCards }) => {
@@ -31,7 +31,7 @@ const CardsContainer = ({ render, cards, pending, error, fetchCards }) => {
       <button onClick={testApiDeleteCall} className='button mc-btn-secondary'>
         Test DELETE /api/cards/
       </button>
-
+      {error && <span className='card-list-error'>{error}</span>}
       <div className='cards-container'>
         {cards.map(card => {
           return (

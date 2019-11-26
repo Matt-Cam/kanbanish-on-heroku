@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 import AddCardItem from './AddCardItem';
-import { removeCardListItem, addCardListItem } from '../redux/actions/index.js';
+import {
+  removeCardListItem,
+  addCardListItem,
+  moveCardListItem
+} from '../redux/actions/index.js';
 import { connect } from 'react-redux';
 
 const whiteBackground = {
@@ -17,18 +21,9 @@ const buttonStyle = {
   margin: '5px'
 };
 
-const Card = ({ id, title, list, removeItem, addItem }) => {
+const Card = ({ id, title, list, removeItem, moveItem, addItem }) => {
   // Local state to hold modal visibility
   const [modalVisible, toggleModalVisible] = useState(false);
-
-  // Function called to move list item from one list to another.
-  // It two dispatches, one to add and one to remove
-  const moveItem = (cardId, itemId, text, direction) => {
-    console.log('moveRight reiniitated');
-    let directionInt = direction === 'right' ? 1 : -1;
-    addItem(cardId + directionInt, text);
-    removeItem(cardId, itemId);
-  };
 
   return (
     <React.Fragment>
@@ -94,9 +89,8 @@ Card.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  addItem: (cardId, desc) => {
-    dispatch(addCardListItem({ id: cardId, desc }));
-  },
+  moveItem: (cardId, itemId, text, direction) =>
+    dispatch(moveCardListItem(cardId, itemId, text, direction)),
   removeItem: (cardId, itemId) => dispatch(removeCardListItem(cardId, itemId))
 });
 
