@@ -32,10 +32,12 @@ function cardsReducer(state = initialState, action) {
         error: action.error
       };
     case ADD_CARD_LIST_ITEM:
+      console.log('addcardlistitem reducer');
+      console.log(action.payload);
       return {
         ...state,
         cards: state.cards.map((card, index) => {
-          if (index !== action.payload.id) {
+          if (card._id !== action.payload.id) {
             return card;
           } else {
             return {

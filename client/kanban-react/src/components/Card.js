@@ -32,7 +32,7 @@ const Card = ({ id, _id, title, list, removeItem, moveItem, addItem }) => {
         closeCallback={() => toggleModalVisible(false)}
       >
         <AddCardItem
-          cardId={id}
+          cardId={_id}
           closeForm={() => toggleModalVisible(false)}
         ></AddCardItem>
       </Modal>

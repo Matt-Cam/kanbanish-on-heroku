@@ -54,9 +54,10 @@ router.post('/removeListItem/:cardId/:listItem', (req, res) => {
 
 // ADD list item to card
 router.post('/addListItem/:cardId/', (req, res) => {
+  console.log(req);
   Card.findById(req.params.cardId)
     .then(card => {
-      card.list.push(req.body.listItem);
+      card.list.push(req.body.listItemDesc);
       card
         .save()
         .then(() => {

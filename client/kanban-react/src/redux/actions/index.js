@@ -5,14 +5,19 @@ import {
   FETCH_CARDS_SUCCESS,
   FETCH_CARDS_PENDING
 } from '../constants/action-types';
-import { fetchCardsFromServer, removeCardItemFromServer } from './api-calls';
+import {
+  fetchCardsFromServer,
+  removeCardItemFromServer,
+  addCardListItemToServer
+} from './api-calls';
 
 export function fetchCards() {
   return async function(dispatch) {
     dispatch(fetchCardsPending());
     try {
-      const data = await fetchCardsFromServer();
-      dispatch(fetchCardsSuccess(data.cards));
+      fetchCardsFromServer().then(data => {
+        dispatch(fetchCardsSuccess(data.cards));
+      });
     } catch (er) {
       dispatch(fetchCardsError);
       alert('error happening in actions/index.js');
@@ -23,8 +28,16 @@ export function fetchCards() {
 
 // Payload should be something like {cardId: someid, desc: somedesc}
 export function addCardListItem(payload) {
-  console.log(payload);
-  return { type: ADD_CARD_LIST_ITEM, payload };
+  return async function(dispatch) {
+    try {
+      addCardListItemToServer(payload.id, payload.desc).then(x => {
+        console.log('addcardlistitem action creator');
+        dispatch({ type: ADD_CARD_LIST_ITEM, payload });
+      });
+    } catch (er) {
+      console.log('mc error', er);
+    }
+  };
 }
 
 // Payload should be something like {cardId, itemIndex}

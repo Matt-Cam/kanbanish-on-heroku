@@ -6,6 +6,7 @@ const cardsRouter = require('./server/routes/cards-route');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(express.static('./client/kanban-react/build'));
