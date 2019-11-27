@@ -55,24 +55,6 @@ async function addCardListItemToServer(cardId, desc) {
   return data;
 }
 
-/*
-// ADD a list item to one of the cards
-async function addCardListItemToServer(cardId, desc) {
-  try {
-    const response = await fetch(`/api/cards/addListItem/${cardId}`, {
-      method: 'post',
-      body: JSON.stringify({ listItemDesc: desc })
-    });
-    console.log('response: ');
-    console.log(response);
-    let data = response.json();
-    console.log('data: ');
-    console.log(data);
-    return data;
-  } catch (er) {
-    console.log('mc error', er);
-  }
-}*/
 export {
   fetchCardsFromServer,
   removeCardItemFromServer,

@@ -12,7 +12,7 @@ const initialState = {
   removedItems: [],
   cards: []
 };
-function cardsReducer(state = initialState, action) {
+function cards(state = initialState, action) {
   switch (action.type) {
     case FETCH_CARDS_PENDING:
       return {
@@ -32,8 +32,7 @@ function cardsReducer(state = initialState, action) {
         error: action.error
       };
     case ADD_CARD_LIST_ITEM:
-      console.log('addcardlistitem reducer');
-      console.log(action.payload);
+      console.log('addcardlistitem reducer case hit');
       return {
         ...state,
         cards: state.cards.map((card, index) => {
@@ -49,7 +48,7 @@ function cardsReducer(state = initialState, action) {
       };
 
     case REMOVE_CARD_LIST_ITEM:
-      console.log(action);
+      console.log('removecardlistitem reducer case hit');
       return {
         ...state,
         cards: state.cards.map((card, index) => {
@@ -70,4 +69,4 @@ function cardsReducer(state = initialState, action) {
   }
 }
 
-export default cardsReducer;
+export default cards;
