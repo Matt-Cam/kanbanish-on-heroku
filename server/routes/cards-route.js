@@ -16,7 +16,7 @@ router.get('/', (req, res, next) => {
  * Description: Used to give database some test data.
  */
 router.post('/seed', async (req, res, next) => {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 3; i++) {
     const newCard = new Card({
       cardNumber: i,
       title: `This is card ${i}`,
@@ -89,6 +89,19 @@ router.delete('/', (req, res, next) => {
     if (err) next(err);
     else res.send('Succesfully deleted all cards');
   });
+});
+
+// GET max card number card, this is for example purposes
+router.get('/max', async (req, res) => {
+  const x = await Card.find()
+    .sort('-cardNumber')
+    .limit(1)
+    .exec((error, data) => {
+      console.log(data);
+      return data;
+    });
+  console.log(x);
+  res.send('hello');
 });
 
 module.exports = router;

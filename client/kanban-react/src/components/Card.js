@@ -48,7 +48,7 @@ const Card = ({ id, _id, title, list, removeItem, moveItem, addItem }) => {
                 <li key={index}>
                   <span
                     className='arrow move-left-arrow'
-                    onClick={() => moveItem(id, index, listItem, 'left')}
+                    onClick={() => moveItem(_id, id, index, listItem, 'left')}
                   >
                     &#10094;
                   </span>
@@ -61,7 +61,7 @@ const Card = ({ id, _id, title, list, removeItem, moveItem, addItem }) => {
                   {listItem}
                   <span
                     className='arrow move-right-arrow'
-                    onClick={() => moveItem(id, index, listItem, 'right')}
+                    onClick={() => moveItem(_id, id, index, listItem, 'right')}
                   >
                     &#10095;
                   </span>
@@ -89,8 +89,14 @@ Card.propTypes = {
 };
 
 const mapDispatchToProps = dispatch => ({
-  moveItem: (cardId, itemId, text, direction) =>
-    dispatch(moveCardListItem(cardId, itemId, text, direction)),
+  moveItem: (cardId, cardNum, itemId, text, direction) => {
+    console.log('cardId', cardId);
+    console.log('cardNum', cardNum);
+    console.log('itemId', itemId);
+    console.log('text', text);
+    console.log('direction', direction);
+    dispatch(moveCardListItem(cardId, cardNum, itemId, text, direction));
+  },
   removeItem: (cardId, itemId) => dispatch(removeCardListItem(cardId, itemId))
 });
 
