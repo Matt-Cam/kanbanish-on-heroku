@@ -71,9 +71,6 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);
 
-// Matt: 11/20.
-// The following test calls are to give quick point of reference for calling the api
-// API calls should really be outside of the component--see redux folder.
 const testApiGetCall = () => {
   axios
     .get('/api/cards/')
