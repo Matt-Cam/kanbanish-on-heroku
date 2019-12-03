@@ -47,9 +47,9 @@ router.post('/removeListItem/:cardId/:listItem', (req, res) => {
             card: card
           })
         )
-        .catch(err => res.status(400).json('Error: ' + err));
+        .catch(err => res.status(400).json('Error in save: ' + err));
     })
-    .catch(err => res.status(400).json('Error: ' + err));
+    .catch(err => res.status(400).json('Error in fifnd (probably): ' + err));
 });
 
 // ADD list item to card
@@ -76,6 +76,7 @@ router.post('/addListItem/:cardId/', (req, res) => {
  */
 router.route('/add').post((req, res) => {
   const { title, cardNumber, list } = req.body;
+  console.log(req.body);
   const newCard = new Card({ title, cardNumber, list });
   newCard
     .save()

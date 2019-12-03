@@ -9,10 +9,17 @@ import {
   getCardsPending,
   getCardsError
 } from '../redux/selectors/index';
-import { fetchCards } from '../redux/actions/index';
+import { fetchCards, addNewCard } from '../redux/actions/index';
 
 // Container component to hold all of the cards
-const CardsContainer = ({ render, cards, pending, error, fetchCards }) => {
+const CardsContainer = ({
+  render,
+  cards,
+  pending,
+  error,
+  fetchCards,
+  addCard
+}) => {
   // fetch cards on load
   useEffect(() => {
     fetchCards();
@@ -45,7 +52,7 @@ const CardsContainer = ({ render, cards, pending, error, fetchCards }) => {
           );
         })}
 
-        <AddCard></AddCard>
+        <AddCard addCard={addCard}></AddCard>
       </div>
     </React.Fragment>
   );
@@ -57,7 +64,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCards: () => dispatch(fetchCards())
+  fetchCards: () => dispatch(fetchCards()),
+  addCard: (title, cardNumber, list) =>
+    dispatch(addNewCard(title, cardNumber, list))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CardsContainer);

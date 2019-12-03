@@ -10,6 +10,8 @@ import {
   removeCardItemFromServer,
   addCardListItemToServer
 } from './api-calls';
+import { defaultHeaders } from '../../data/defaultHeaders';
+
 import { findRightSiblingCard, findLeftSiblingCard } from '../selectors/index';
 
 export function fetchCards() {
@@ -78,6 +80,24 @@ export function fetchCardsSuccess(cards) {
   return {
     type: FETCH_CARDS_SUCCESS,
     cards: cards
+  };
+}
+
+// payload: {number, title, list}
+export function addNewCard(title, cardNumber, list) {
+  console.log('adding card to API');
+  console.log(title, cardNumber, list);
+  return function(dispatch) {
+    fetch('/api/cards/add', {
+      method: 'POST',
+      headers: defaultHeaders(),
+      body: JSON.stringify({ title, cardNumber, list })
+    })
+      .then(response => response.json())
+      .then(jsonRes => {
+        console.log('Created card:', jsonRes);
+      })
+      .catch(er => console.log('mrr errer', er));
   };
 }
 

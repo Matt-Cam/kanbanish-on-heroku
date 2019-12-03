@@ -90,11 +90,6 @@ Card.propTypes = {
 
 const mapDispatchToProps = dispatch => ({
   moveItem: (cardId, cardNum, itemId, text, direction) => {
-    console.log('cardId', cardId);
-    console.log('cardNum', cardNum);
-    console.log('itemId', itemId);
-    console.log('text', text);
-    console.log('direction', direction);
     dispatch(moveCardListItem(cardId, cardNum, itemId, text, direction));
   },
   removeItem: (cardId, itemId) => dispatch(removeCardListItem(cardId, itemId))

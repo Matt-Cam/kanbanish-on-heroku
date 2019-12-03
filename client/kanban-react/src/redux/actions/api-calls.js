@@ -25,21 +25,6 @@ function removeCardItemFromServer(cardId, itemNum) {
   return response;
 }
 
-// ADD a new card with list
-function addCardToServer(title, cardNumber, list) {
-  console.log('adding card to API');
-  return function(dispatch) {
-    fetch('/api/cards/add', {
-      method: 'post',
-      body: JSON.stringify({ title, cardNumber, list })
-    })
-      .then(response => response.json())
-      .then(jsonRes => {
-        console.log('Created card:', jsonRes);
-      });
-  };
-}
-
 // ADD a list item to one of the cards
 async function addCardListItemToServer(cardId, desc) {
   const response = await fetch(`/api/cards/addListItem/${cardId}`, {
