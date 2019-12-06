@@ -1,6 +1,7 @@
 import {
   ADD_CARD_LIST_ITEM,
   REMOVE_CARD_LIST_ITEM,
+  ADD_CARD,
   FETCH_CARDS_SUCCESS,
   FETCH_CARDS_ERROR,
   FETCH_CARDS_PENDING
@@ -30,6 +31,11 @@ function cards(state = initialState, action) {
         ...state,
         pending: false,
         error: action.error
+      };
+    case ADD_CARD:
+      return {
+        ...state,
+        cards: state.cards.concat(action.payload)
       };
     case ADD_CARD_LIST_ITEM:
       console.log('addcardlistitem reducer case hit');

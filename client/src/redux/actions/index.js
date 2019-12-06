@@ -3,19 +3,26 @@ import {
   REMOVE_CARD_LIST_ITEM,
   FETCH_CARDS_ERROR,
   FETCH_CARDS_SUCCESS,
-  FETCH_CARDS_PENDING
+  FETCH_CARDS_PENDING,
+  ADD_CARD
 } from '../constants/action-types';
 import {
   fetchCardsFromServer,
   removeCardItemFromServer,
-  addCardListItemToServer
+  addCardListItemToServer,
+  addNewCardToServer
 } from './api-calls';
+
 import { defaultHeaders } from '../../data/defaultHeaders';
 
-import { findRightSiblingCard, findLeftSiblingCard } from '../selectors/index';
+import {
+  findRightSiblingCard,
+  findLeftSiblingCard,
+  findMaxCardNumber
+} from '../selectors/index';
 
 export function fetchCards() {
-  return async function(dispatch) {
+  return function(dispatch) {
     dispatch(fetchCardsPending());
     try {
       fetchCardsFromServer().then(data => {
@@ -45,21 +52,18 @@ export function addCardListItem(payload) {
 
 // Payload should be something like {cardId, itemIndex}
 export function removeCardListItem(cardId, itemIndex) {
-  return async function(dispatch) {
-    try {
-      const removedItemResponse = await removeCardItemFromServer(
-        cardId,
-        itemIndex
+  return function(dispatch) {
+    removeCardItemFromServer(cardId, itemIndex)
+      .then(response => {
+        dispatch({
+          type: REMOVE_CARD_LIST_ITEM,
+          cardId: response.card.cardNumber,
+          itemIndex
+        });
+      })
+      .catch(er =>
+        console.log('mc err found in removeCardListItem action creator: ' + er)
       );
-      console.log(removedItemResponse);
-      dispatch({
-        type: REMOVE_CARD_LIST_ITEM,
-        cardId: removedItemResponse.card.cardNumber,
-        itemIndex
-      });
-    } catch (er) {
-      console.log('mc err found in removeCardListItem action creator: ' + er);
-    }
   };
 }
 
@@ -83,21 +87,23 @@ export function fetchCardsSuccess(cards) {
   };
 }
 
+export function addCardSuccess(card) {
+  return {
+    type: ADD_CARD,
+    payload: card
+  };
+}
+
 // payload: {number, title, list}
-export function addNewCard(title, cardNumber, list) {
+export function addNewCard(title, list) {
   console.log('adding card to API');
-  console.log(title, cardNumber, list);
-  return function(dispatch) {
-    fetch('/api/cards/add', {
-      method: 'POST',
-      headers: defaultHeaders(),
-      body: JSON.stringify({ title, cardNumber, list })
-    })
-      .then(response => response.json())
-      .then(jsonRes => {
-        console.log('Created card:', jsonRes);
-      })
-      .catch(er => console.log('mrr errer', er));
+  return function(dispatch, getState) {
+    // new card number will be max + 1
+    const newCardNumber = findMaxCardNumber(getState()) + 1;
+    addNewCardToServer(title, newCardNumber, list).then(jsonRes => {
+      console.log('Created card:', jsonRes);
+      dispatch(addCardSuccess(jsonRes.card));
+    });
   };
 }
 

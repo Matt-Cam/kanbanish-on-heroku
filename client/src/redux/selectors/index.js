@@ -1,3 +1,4 @@
+import store from '../store/';
 export const getCards = state => state.cards.cards;
 export const getCardsPending = state => state.pending;
 export const getCardsError = state => state.error;
@@ -24,3 +25,16 @@ export const findLeftSiblingCard = (state, cardNum) => {
   }
   return null;
 };
+
+export const findMaxCardNumber = state => {
+  const cards = getCards(state);
+  //if cards array is empty return -1, because the receiving function will increment this
+  if (cards.length == 0) return -1;
+  const max = cards.reduce(function(prev, current) {
+    return prev.cardNumber > current.cardNumber ? prev : current;
+  });
+  console.log(max.cardNumber);
+  return max.cardNumber;
+};
+window.maxx = findMaxCardNumber;
+window.store = store;

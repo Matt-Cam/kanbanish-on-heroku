@@ -1,3 +1,4 @@
+import { defaultHeaders } from '../../data/defaultHeaders';
 // api-calls.js
 function fetchCardsFromServer() {
   console.log('fetch call made on server');
@@ -40,8 +41,19 @@ async function addCardListItemToServer(cardId, desc) {
   return data;
 }
 
+async function addNewCardToServer(title, cardNumber, list) {
+  const response = await fetch('/api/cards/add', {
+    method: 'POST',
+    headers: defaultHeaders(),
+    body: JSON.stringify({ title, cardNumber, list })
+  }).catch(er => console.log('mrr errer', er));
+  const responseJson = response.json();
+  return responseJson;
+}
+
 export {
   fetchCardsFromServer,
   removeCardItemFromServer,
-  addCardListItemToServer
+  addCardListItemToServer,
+  addNewCardToServer
 };
