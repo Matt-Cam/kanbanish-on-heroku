@@ -1,4 +1,3 @@
-import store from '../store/';
 export const getCards = state => state.cards.cards;
 export const getCardsPending = state => state.pending;
 export const getCardsError = state => state.error;
@@ -33,8 +32,5 @@ export const findMaxCardNumber = state => {
   const max = cards.reduce(function(prev, current) {
     return prev.cardNumber > current.cardNumber ? prev : current;
   });
-  console.log(max.cardNumber);
   return max.cardNumber;
 };
-window.maxx = findMaxCardNumber;
-window.store = store;

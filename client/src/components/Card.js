@@ -21,7 +21,17 @@ const buttonStyle = {
   margin: '5px'
 };
 
-const Card = ({ id, _id, title, list, removeItem, moveItem, addItem }) => {
+const Card = ({
+  id,
+  _id,
+  title,
+  list,
+  removeItem,
+  moveItem,
+  addItem,
+  isFirst,
+  isLast
+}) => {
   // Local state to hold modal visibility
   const [modalVisible, toggleModalVisible] = useState(false);
 
@@ -46,25 +56,32 @@ const Card = ({ id, _id, title, list, removeItem, moveItem, addItem }) => {
             {list.map((listItem, index) => {
               return (
                 <li key={index}>
-                  <span
-                    className='arrow move-left-arrow'
-                    onClick={() => moveItem(_id, id, index, listItem, 'left')}
-                  >
-                    &#10094;
-                  </span>
+                  {!isFirst && (
+                    <span
+                      className='arrow move-left-arrow'
+                      onClick={() => moveItem(_id, id, index, listItem, 'left')}
+                    >
+                      &#10094;
+                    </span>
+                  )}
+
                   <button
                     style={buttonStyle}
                     onClick={() => removeItem(_id, index)}
                   >
-                    x
+                    X
                   </button>
                   {listItem}
-                  <span
-                    className='arrow move-right-arrow'
-                    onClick={() => moveItem(_id, id, index, listItem, 'right')}
-                  >
-                    &#10095;
-                  </span>
+                  {!isLast && (
+                    <span
+                      className='arrow move-right-arrow'
+                      onClick={() =>
+                        moveItem(_id, id, index, listItem, 'right')
+                      }
+                    >
+                      &#10095;
+                    </span>
+                  )}
                 </li>
               );
             })}

@@ -124,14 +124,15 @@ li {
   z-index: 101;
 }
 .modal__content {
-  background-color: #ffffff;
+  position: fixed;
+  background: white;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 111;
+  padding: 20px;
   border-radius: 5px;
-  left: calc(50% - 100px);
-  opacity: 1;
-  padding: 25px;
-  position: absolute;
-  top: calc(50% - 100px);
-  z-index: 102;
 }
 
 .modal__close {

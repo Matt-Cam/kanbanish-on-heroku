@@ -40,7 +40,7 @@ const CardsContainer = ({
       </button>
       {error && <span className='card-list-error'>{error}</span>}
       <div className='cards-container'>
-        {cards.map(card => {
+        {cards.map((card, i) => {
           return (
             <Card
               key={card._id}
@@ -48,6 +48,8 @@ const CardsContainer = ({
               id={card.cardNumber}
               list={card.list}
               title={card.title}
+              isFirst={i === 0}
+              isLast={i >= cards.length - 1}
             ></Card>
           );
         })}
