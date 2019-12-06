@@ -1,14 +1,14 @@
 require('dotenv').config();
-require('./server/db-conn');
+//require('./server/db-conn');
 const express = require('express');
 const bodyParser = require('body-parser');
-const cardsRouter = require('./server/routes/cards-route');
+//const cardsRouter = require('./server/routes/cards-route');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/api/cards/', cardsRouter);
+//app.use('/api/cards/', cardsRouter);
 
 const path = require('path');
 // Serve static files from the React frontend app
