@@ -13,7 +13,7 @@ function App() {
         </p>
       </header>
 
-      {/*}<CardsContainer></CardsContainer>{{*/}
+      <CardsContainer></CardsContainer>
     </div>
   );
 }

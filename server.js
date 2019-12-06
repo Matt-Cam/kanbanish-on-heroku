@@ -1,27 +1,22 @@
 require('dotenv').config();
-//require('./server/db-conn');
+require('./server/db-conn');
 const express = require('express');
 const bodyParser = require('body-parser');
-//const cardsRouter = require('./server/routes/cards-route');
+const cardsRouter = require('./server/routes/cards-route');
 
 const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-//app.use('/api/cards/', cardsRouter);
+app.use('/api/cards/', cardsRouter);
 
 const path = require('path');
 // Serve static files from the React frontend app
-/*
-app.use(express.static(path.join(__dirname, 'client/')));
+app.use(express.static(path.join(__dirname, '/client/build/')));
 
 // Anything that doesn't match the above, send back index.html
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/index.html'));
-});
-*/
-app.get('/', (req, res) => {
-  res.send('hello world');
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 const { PORT } = process.env || 5001;
