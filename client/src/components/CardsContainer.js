@@ -53,7 +53,6 @@ const CardsContainer = ({
             ></Card>
           );
         })}
-
         <AddCard addCard={addCard}></AddCard>
       </div>
     </React.Fragment>

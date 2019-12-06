@@ -7,7 +7,7 @@ const AddCardForm = props => {
     <form
       onSubmit={event => {
         event.preventDefault();
-        props.addCard(newCardTitle, newCardList);
+        props.addCard(newCardTitle, newCardList.split(','));
         props.closeForm();
       }}
     >

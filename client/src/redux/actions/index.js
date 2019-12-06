@@ -117,7 +117,6 @@ export function moveCardListItem(_id, cardNum, itemId, text, direction) {
         ? findRightSiblingCard(getState(), cardNum)
         : findLeftSiblingCard(getState(), cardNum);
     let moveToCardId = moveToCard._id;
-    console.log(findLeftSiblingCard(getState(), cardNum));
     try {
       let x = addCardListItem({ id: moveToCardId, desc: text });
       dispatch(x);
