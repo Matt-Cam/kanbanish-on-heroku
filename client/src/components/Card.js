@@ -9,18 +9,6 @@ import {
 } from '../redux/actions/index.js';
 import { connect } from 'react-redux';
 
-const whiteBackground = {
-  backgroundColor: '#f9f8fd'
-};
-
-const buttonStyle = {
-  borderRadius: '25px',
-  background: 'white',
-  border: '1px solid red',
-  color: 'red',
-  margin: '5px'
-};
-
 const Card = ({
   id,
   _id,
@@ -47,7 +35,7 @@ const Card = ({
         ></AddCardItem>
       </Modal>
 
-      <div className='card' style={whiteBackground}>
+      <div className='card'>
         <h4 className='cardHeader'>
           <b>{title}</b>
         </h4>
@@ -64,9 +52,8 @@ const Card = ({
                       &#10094;
                     </span>
                   )}
-
                   <button
-                    style={buttonStyle}
+                    className='mc-btn-delete'
                     onClick={() => removeItem(_id, index)}
                   >
                     X
