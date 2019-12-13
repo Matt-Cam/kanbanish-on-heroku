@@ -12,7 +12,6 @@ function App() {
           Kanban(<i>ish</i>) built with <strong>React&Redux</strong>
         </p>
       </header>
-
       <CardsContainer></CardsContainer>
     </div>
   );

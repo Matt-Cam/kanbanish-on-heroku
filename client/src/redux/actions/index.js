@@ -38,7 +38,7 @@ export function fetchCards() {
 
 // Payload should be something like {id: some cardid should align with id from mongo, desc: somedesc}
 export function addCardListItem(payload) {
-  return async function(dispatch) {
+  return function(dispatch) {
     try {
       addCardListItemToServer(payload.id, payload.desc).then(x => {
         console.log('addcardlistitem action creator');
