@@ -92,6 +92,14 @@ router.delete('/', (req, res, next) => {
   });
 });
 
+//DELETE ONE ENTIRE CARD BY ID
+router.delete('/:cardId', (req, res, next) => {
+  Card.deleteOne({ _id: req.params.cardId }, err => {
+    if (err) next(err);
+    else res.send('Succesfully one card with id ' + req.params.cardId);
+  });
+});
+
 // GET max card number card, this is for example purposes
 router.get('/max', async (req, res) => {
   const x = await Card.find()

@@ -41,7 +41,7 @@ const CardsContainer = ({
       {error && <span className='card-list-error'>{error}</span>}
       <div className='cards-container'>
         {cards.map((card, i) => {
-          return (
+          return card ? (
             <Card
               key={card._id}
               _id={card._id}
@@ -51,6 +51,8 @@ const CardsContainer = ({
               isFirst={i === 0}
               isLast={i >= cards.length - 1}
             ></Card>
+          ) : (
+            <div>empty</div>
           );
         })}
         <AddCard addCard={addCard}></AddCard>

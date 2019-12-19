@@ -51,9 +51,27 @@ async function addNewCardToServer(title, cardNumber, list) {
   return responseJson;
 }
 
+function deleteCardFromServer(cardId) {
+  const response = fetch(`/api/cards/${cardId}`, {
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    },
+    method: 'delete'
+  })
+    .then(res => res.text())
+    .then(text => console.log(text))
+    .catch(err => {
+      console.log('error hit');
+      throw err;
+    });
+  return response;
+}
+
 export {
   fetchCardsFromServer,
   removeCardItemFromServer,
   addCardListItemToServer,
-  addNewCardToServer
+  addNewCardToServer,
+  deleteCardFromServer
 };

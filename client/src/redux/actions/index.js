@@ -4,13 +4,15 @@ import {
   FETCH_CARDS_ERROR,
   FETCH_CARDS_SUCCESS,
   FETCH_CARDS_PENDING,
-  ADD_CARD
+  ADD_CARD,
+  DELETE_CARD
 } from '../constants/action-types';
 import {
   fetchCardsFromServer,
   removeCardItemFromServer,
   addCardListItemToServer,
-  addNewCardToServer
+  addNewCardToServer,
+  deleteCardFromServer
 } from './api-calls';
 
 import { defaultHeaders } from '../../data/defaultHeaders';
@@ -64,6 +66,25 @@ export function removeCardListItem(cardId, itemIndex) {
       .catch(er =>
         console.log('mc err found in removeCardListItem action creator: ' + er)
       );
+  };
+}
+
+// DELETE a single card by id (mongo id for this card/document)
+export function deleteCard(cardId) {
+  return dispatch => {
+    try {
+      deleteCardFromServer(cardId).then(response => {
+        dispatch(deleteCardActionCreator(cardId));
+      });
+    } catch (er) {
+      console.log(er);
+    }
+  };
+}
+export function deleteCardActionCreator(cardId) {
+  return {
+    type: DELETE_CARD,
+    payload: cardId
   };
 }
 

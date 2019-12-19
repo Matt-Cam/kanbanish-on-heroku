@@ -28,7 +28,7 @@ export const findLeftSiblingCard = (state, cardNum) => {
 export const findMaxCardNumber = state => {
   const cards = getCards(state);
   //if cards array is empty return -1, because the receiving function will increment this
-  if (cards.length == 0) return -1;
+  if (cards.length === 0) return -1;
   const max = cards.reduce(function(prev, current) {
     return prev.cardNumber > current.cardNumber ? prev : current;
   });

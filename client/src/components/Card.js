@@ -5,7 +5,8 @@ import AddCardItem from './AddCardItem';
 import {
   removeCardListItem,
   addCardListItem,
-  moveCardListItem
+  moveCardListItem,
+  deleteCard
 } from '../redux/actions/index.js';
 import { connect } from 'react-redux';
 
@@ -15,6 +16,7 @@ const Card = ({
   title,
   list,
   removeItem,
+  deleteCard,
   moveItem,
   addItem,
   isFirst,
@@ -38,6 +40,7 @@ const Card = ({
       <div className='card'>
         <h4 className='cardHeader'>
           <b>{title}</b>
+          <button onClick={() => deleteCard(_id)}>DLETE</button>
         </h4>
         <div className='container'>
           <ul>
@@ -96,7 +99,8 @@ const mapDispatchToProps = dispatch => ({
   moveItem: (cardId, cardNum, itemId, text, direction) => {
     dispatch(moveCardListItem(cardId, cardNum, itemId, text, direction));
   },
-  removeItem: (cardId, itemId) => dispatch(removeCardListItem(cardId, itemId))
+  removeItem: (cardId, itemId) => dispatch(removeCardListItem(cardId, itemId)),
+  deleteCard: cardId => dispatch(deleteCard(cardId))
 });
 
 export default connect(null, mapDispatchToProps)(Card);

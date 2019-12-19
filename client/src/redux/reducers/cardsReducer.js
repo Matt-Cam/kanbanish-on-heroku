@@ -2,6 +2,7 @@ import {
   ADD_CARD_LIST_ITEM,
   REMOVE_CARD_LIST_ITEM,
   ADD_CARD,
+  DELETE_CARD,
   FETCH_CARDS_SUCCESS,
   FETCH_CARDS_ERROR,
   FETCH_CARDS_PENDING
@@ -36,6 +37,16 @@ function cards(state = initialState, action) {
       return {
         ...state,
         cards: state.cards.concat(action.payload)
+      };
+    case DELETE_CARD:
+      const indexOfCardToDelete = state.cards.findIndex(
+        card => card._id === action.payload
+      );
+      const cardsToSplice = [...state.cards];
+      cardsToSplice.splice(indexOfCardToDelete, 1);
+      return {
+        ...state,
+        cards: cardsToSplice
       };
     case ADD_CARD_LIST_ITEM:
       console.log('addcardlistitem reducer case hit');
