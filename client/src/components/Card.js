@@ -40,6 +40,8 @@ const Card = ({
       <div className='card'>
         <h4 className='cardHeader'>
           <b>{title}</b>
+          <br></br>
+          {_id}
           <button onClick={() => deleteCard(_id)}>DLETE</button>
         </h4>
         <div className='container'>

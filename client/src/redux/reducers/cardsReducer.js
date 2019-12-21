@@ -69,7 +69,7 @@ function cards(state = initialState, action) {
       return {
         ...state,
         cards: state.cards.map((card, index) => {
-          if (index !== action.cardId) {
+          if (card.cardNumber !== action.cardNumber) {
             return card;
           } else {
             return {

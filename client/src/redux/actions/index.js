@@ -59,7 +59,7 @@ export function removeCardListItem(cardId, itemIndex) {
       .then(response => {
         dispatch({
           type: REMOVE_CARD_LIST_ITEM,
-          cardId: response.card.cardNumber,
+          cardNumber: response.card.cardNumber,
           itemIndex
         });
       })
