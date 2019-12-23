@@ -40,9 +40,6 @@ const Card = ({
       <div className='card'>
         <h4 className='cardHeader'>
           <b>{title}</b>
-          <br></br>
-          {_id}
-          <button onClick={() => deleteCard(_id)}>DLETE</button>
         </h4>
         <div className='container'>
           <ul>
@@ -79,6 +76,12 @@ const Card = ({
             })}
           </ul>
           <button
+            className='button mc-btn-secondary mc-btn-red'
+            onClick={() => deleteCard(_id)}
+          >
+            X
+          </button>
+          <button
             className='button mc-btn-secondary'
             onClick={() => {
               toggleModalVisible(true);
@@ -87,6 +90,7 @@ const Card = ({
             Add Item
           </button>
         </div>
+        <p style={{ float: 'right', padding: 0, margin: 0 }}>Card ID: {_id}</p>
       </div>
     </React.Fragment>
   );

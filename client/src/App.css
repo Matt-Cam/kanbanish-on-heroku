@@ -12,18 +12,39 @@
 .App-header {
   color: #f9f8fd;
   color: #eae6e4;
-  color: #edd1cb;
-  color: #f95959;
-  color: #563c50;
-  color: #371d31;
-  background-color: #eae6e4;
+  color: #99b898;
+  color: #feceab;
+  color: #ff847c;
+  color: #e84a5f;
+  color: #2a363b;
+
   min-height: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #371d31;
+  color: #99b898;
+}
+
+.color-example-1 {
+  background-color: #99b898;
+}
+.color-example-2 {
+  background-color: #feceab;
+}
+.color-example-3 {
+  background-color: #ff847c;
+}
+.color-example-4 {
+  background-color: #e84a5f;
+  padding: 2px;
+  color: white;
+}
+.color-example-5 {
+  background-color: #2a363b;
+  padding: 2px;
+  color: white;
 }
 
 body {
@@ -63,7 +84,7 @@ ul {
 }
 .cardHeader {
   width: 100%;
-  background-color: #563c50;
+  background-color: #2a363b;
   margin: 0;
   padding: 10px;
   color: #f9f8fd;
@@ -75,7 +96,7 @@ ul {
 }
 
 .arrow {
-  color: #563c50;
+  color: #2a363b;
   font-size: 1.2em;
   cursor: pointer;
   position: absolute;
@@ -110,7 +131,7 @@ li {
 }
 
 .modal__overlay {
-  background-color: #333333;
+  background-color: #2a363b;
   bottom: 0;
   cursor: pointer;
   height: 100%;
@@ -137,7 +158,7 @@ li {
 }
 
 .modal__close {
-  background-color: #333333;
+  background-color: #2a363b;
   border: 2px solid #ffffff;
   border-radius: 20px;
   color: #ffffff;
@@ -153,7 +174,7 @@ li {
 }
 
 .button {
-  background-color: #4caf50; /* Green */
+  background-color: #2a363b; /* Green */
   border: none;
   color: white;
   padding: 16px 32px;
@@ -169,23 +190,32 @@ li {
 
 .mc-btn-secondary {
   background-color: #f9f8fd;
-  color: #563c50;
-  border: 2px solid #563c50;
+  color: #2a363b;
+  border: 2px solid #2a363b;
   cursor: pointer;
 }
+
+.mc-btn-red {
+  color: #e84a5f;
+  border: 2px solid#e84a5f !important;
+}
+.mc-btn-red:hover {
+  background-color: #e84a5f !important;
+}
+
 .round {
   border-radius: 25px;
 }
 
 .mc-btn-secondary:hover {
-  background-color: #563c50;
+  background-color: #2a363b;
   color: #f9f8fd;
 }
 .mc-btn-delete {
   border-radius: 25px;
   background: white;
-  border: 1px solid red;
-  color: red;
+  border: 1px solid #e84a5f;
+  color: #e84a5f;
   margin: 5px;
 }
 

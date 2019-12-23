@@ -1,18 +1,21 @@
 import React from 'react';
 import './App.css';
+import BigLogo from './assets/Big Logo.png';
 
 import { connect } from 'react-redux';
 import CardsContainer from './components/CardsContainer';
-
+import ExampleColors from './components/ExampleColors';
 function App() {
   return (
     <div className='App'>
       <header className='App-header'>
-        <p>
-          Kanban(<i>ish</i>) built with <strong>React&Redux</strong>
-        </p>
+        <img src={BigLogo} style={{ height: '50px' }}></img>
+        <h4>
+          built with <strong>Mongo, Express, React, and Redux</strong>
+        </h4>
       </header>
       <CardsContainer></CardsContainer>
+      <ExampleColors></ExampleColors>
     </div>
   );
 }
