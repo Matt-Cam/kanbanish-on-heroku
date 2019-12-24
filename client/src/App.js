@@ -1,5 +1,6 @@
 import React from 'react';
 import './App.css';
+import './Animations.css';
 import BigLogo from './assets/Big Logo.png';
 
 import { connect } from 'react-redux';

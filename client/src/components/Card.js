@@ -90,7 +90,7 @@ const Card = ({
             Add Item
           </button>
         </div>
-        <p style={{ float: 'right', padding: 0, margin: 0 }}>Card ID: {_id}</p>
+        <p style={{ fontSize: '.5em' }}>Card ID: {_id}</p>
       </div>
     </React.Fragment>
   );
