@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from './Modal';
 import AddCardForm from './AddCardForm';
 
 const AddCard = props => {
   const [show, toggleModal] = useState(false);
+
   return (
     <React.Fragment>
       <Modal open={show} closeCallback={() => toggleModal(false)}>

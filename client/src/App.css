@@ -10,14 +10,6 @@
 }
 
 .App-header {
-  color: #f9f8fd;
-  color: #eae6e4;
-  color: #99b898;
-  color: #feceab;
-  color: #ff847c;
-  color: #e84a5f;
-  color: #2a363b;
-
   min-height: 50px;
   display: flex;
   flex-direction: column;
@@ -25,6 +17,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: #99b898;
+  margin: 25px 0;
 }
 
 .color-example-1 {
@@ -221,4 +214,7 @@ li {
 
 ul li:nth-child(even) {
   background-color: #eae6e4;
+}
+.bigbreak {
+  margin: 100px 0;
 }

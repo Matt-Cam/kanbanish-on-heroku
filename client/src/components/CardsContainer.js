@@ -29,15 +29,6 @@ const CardsContainer = ({
     <LoadingSpinner></LoadingSpinner>
   ) : (
     <React.Fragment>
-      <button onClick={testApiGetCall} className='button mc-btn-secondary'>
-        Test Api GET /api/cards/
-      </button>
-      <button onClick={testApiPostCall} className='button mc-btn-secondary'>
-        Test POST /api/cards/seed
-      </button>
-      <button onClick={testApiDeleteCall} className='button mc-btn-secondary'>
-        Test DELETE /api/cards/
-      </button>
       {error && <span className='card-list-error'>{error}</span>}
       <div className='cards-container'>
         {cards.map((card, i) => {
@@ -57,6 +48,17 @@ const CardsContainer = ({
         })}
         <AddCard addCard={addCard}></AddCard>
       </div>
+      <hr className='bigbreak'></hr>
+      <h4>below buttons to test network calls</h4>
+      <button onClick={testApiGetCall} className='button mc-btn-secondary'>
+        Test Api GET /api/cards/
+      </button>
+      <button onClick={testApiPostCall} className='button mc-btn-secondary'>
+        Test POST /api/cards/seed
+      </button>
+      <button onClick={testApiDeleteCall} className='button mc-btn-secondary'>
+        Test DELETE /api/cards/
+      </button>
     </React.Fragment>
   );
 };
