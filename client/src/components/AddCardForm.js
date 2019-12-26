@@ -10,15 +10,16 @@ const AddCardForm = props => {
     formValid: false
   });
 
-  function validateFieldAndSetState(fieldName, value) {
+  function handleUserInput(e) {
+    let listValid = state.listValid;
+    const name = e.target.name;
+    const value = e.target.value;
     let fieldValidationErrors = state.formErrors;
     let titleValid = state.titleValid;
-    let listValid = state.listValid;
 
-    switch (fieldName) {
+    // First we validate the input
+    switch (name) {
       case 'cardTitle':
-        //make sure the title is alphanumeric
-        // let titleValid = value.match(/^[a-z0-9]+$/i);
         titleValid = value.length >= 1;
         fieldValidationErrors.title = titleValid
           ? ''
@@ -33,21 +34,14 @@ const AddCardForm = props => {
       default:
         break;
     }
-
     setState({
       ...state,
       formErrors: fieldValidationErrors,
-      titleValid: true,
+      titleValid: titleValid,
       listValid: listValid,
       formValid: titleValid && listValid,
-      [fieldName]: value
+      [name]: value
     });
-  }
-
-  function handleUserInput(e) {
-    const name = e.target.name;
-    const value = e.target.value;
-    validateFieldAndSetState(name, value);
   }
   return (
     <form

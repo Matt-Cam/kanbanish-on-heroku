@@ -49,7 +49,8 @@ const CardsContainer = ({
         <AddCard addCard={addCard}></AddCard>
       </div>
       <hr className='bigbreak'></hr>
-      <h4>below buttons to test network calls</h4>
+      <h1>below area is just for dev purposes</h1>
+      <h4>buttons to test network calls</h4>
       <button onClick={testApiGetCall} className='button mc-btn-secondary'>
         Test Api GET /api/cards/
       </button>
@@ -59,6 +60,8 @@ const CardsContainer = ({
       <button onClick={testApiDeleteCall} className='button mc-btn-secondary'>
         Test DELETE /api/cards/
       </button>
+      <p>fake spinner to tinker with styles</p>
+      <LoadingSpinner></LoadingSpinner>
     </React.Fragment>
   );
 };
