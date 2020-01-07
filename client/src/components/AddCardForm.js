@@ -69,7 +69,11 @@ const AddCardForm = props => {
         onChange={e => handleUserInput(e)}
       ></input>
       <br></br>
-      <button className='button mc-btn-secondary' type='submit'>
+      <button
+        className='button mc-btn-secondary'
+        type='submit'
+        disabled={!state.formValid}
+      >
         Add Card
       </button>
     </form>
