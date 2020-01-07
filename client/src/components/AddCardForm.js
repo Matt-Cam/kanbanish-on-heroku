@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { FormErrors } from './FormErrors';
 
 const AddCardForm = props => {
   let [state, setState] = useState({
@@ -20,20 +21,21 @@ const AddCardForm = props => {
     // First we validate the input
     switch (name) {
       case 'cardTitle':
-        titleValid = value.length >= 1;
+        titleValid = value.length >= 2;
         fieldValidationErrors.title = titleValid
           ? ''
-          : 'Title required and can only contain alphanumeric';
+          : 'Title required and needs to atleast 2 chars';
         break;
       case 'cardList':
-        listValid = value.length >= 1;
+        listValid = value.length >= 2;
         fieldValidationErrors.list = listValid
           ? ''
-          : `yo the list shouldn't be empty. please enter atleast one list item`;
+          : 'Yo the list needs to contain atleast 2 chars';
         break;
       default:
         break;
     }
+
     setState({
       ...state,
       formErrors: fieldValidationErrors,
@@ -42,6 +44,7 @@ const AddCardForm = props => {
       formValid: titleValid && listValid,
       [name]: value
     });
+    console.log(state.formErrors);
   }
   return (
     <form
@@ -51,6 +54,7 @@ const AddCardForm = props => {
         props.closeForm();
       }}
     >
+      <FormErrors formErrors={state.formErrors} />
       <label>Title of card</label>
       <br></br>
       <input

@@ -223,3 +223,8 @@ ul li:nth-child(even) {
   opacity: 0.5;
   cursor: not-allowed;
 }
+
+.errors {
+  color: #e84a5f;
+  font-size: 0.75em;
+}
