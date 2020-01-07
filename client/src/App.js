@@ -15,6 +15,8 @@ function App() {
           built with <strong>Mongo, Express, React, and Redux</strong>
         </h4>
       </header>
+      <CardsContainer></CardsContainer>
+      <ExampleColors></ExampleColors>
     </div>
   );
 }
