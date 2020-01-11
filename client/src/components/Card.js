@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import Modal from './Modal';
 import AddCardItem from './AddCardItem';
@@ -26,6 +26,8 @@ function Card({
 }) {
   // Local state to hold modal visibility
   const [modalVisible, toggleModalVisible] = useState(false);
+  const [beingDraggedOver, setBeingDraggedOver] = useState(false);
+  const [isOriginatingCard, setIsOriginatingCard] = useState(false);
 
   const onDragStart = (event, _id, index, listItem) => {
     event.dataTransfer.setData('text', listItem);
@@ -33,12 +35,15 @@ function Card({
   };
   const onDragOver = event => {
     event.preventDefault();
+    setBeingDraggedOver(true);
+  };
+  const onDragLeave = event => {
+    setBeingDraggedOver(false);
   };
   const onDrop = (e, _id) => {
     const text = e.dataTransfer.getData('text');
-    console.log('text: ', text);
-    console.log('_id: ', _id);
     addListItem(_id, text);
+    setBeingDraggedOver(false);
   };
 
   return (
@@ -54,8 +59,13 @@ function Card({
       </Modal>
 
       <div
-        className='card'
+        className={
+          beingDraggedOver && !isOriginatingCard
+            ? 'card beingDraggedOver'
+            : 'card'
+        }
         onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
         onDrop={e => onDrop(e, _id)}
       >
         <h4 className='cardHeader'>

@@ -242,3 +242,11 @@ ul li:nth-child(even) {
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
 }
+
+.grabbable:hover {
+  background-color: #99b898;
+}
+
+.beingDraggedOver {
+  border: 5px solid #99b898;
+}
