@@ -1,32 +1,48 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+
 import Modal from './Modal';
 import AddCardItem from './AddCardItem';
 import {
   removeCardListItem,
-  addCardListItem,
   moveCardListItem,
-  deleteCard
+  deleteCard,
+  moveCardListItemLeftOrRight,
+  addCardListItem
 } from '../redux/actions/index.js';
 import { connect } from 'react-redux';
 
-const Card = ({
+function Card({
   id,
   _id,
   title,
   list,
   removeItem,
   deleteCard,
+  moveItemLeftOrRight,
   moveItem,
-  addItem,
   isFirst,
-  isLast
-}) => {
+  isLast,
+  addListItem
+}) {
   // Local state to hold modal visibility
   const [modalVisible, toggleModalVisible] = useState(false);
 
+  const onDragStart = (event, _id, index, listItem) => {
+    event.dataTransfer.setData('text', listItem);
+    removeItem(_id, index);
+  };
+  const onDragOver = event => {
+    event.preventDefault();
+  };
+  const onDrop = (e, _id) => {
+    const text = e.dataTransfer.getData('text');
+    console.log('text: ', text);
+    console.log('_id: ', _id);
+    addListItem(_id, text);
+  };
+
   return (
-    <React.Fragment>
+    <>
       <Modal
         open={modalVisible}
         closeCallback={() => toggleModalVisible(false)}
@@ -37,7 +53,11 @@ const Card = ({
         ></AddCardItem>
       </Modal>
 
-      <div className='card'>
+      <div
+        className='card'
+        onDragOver={onDragOver}
+        onDrop={e => onDrop(e, _id)}
+      >
         <h4 className='cardHeader'>
           <b>{title}</b>
         </h4>
@@ -45,11 +65,20 @@ const Card = ({
           <ul>
             {list.map((listItem, index) => {
               return (
-                <li key={index}>
+                <li
+                  className='grabbable'
+                  key={index}
+                  draggable
+                  onDragStart={event =>
+                    onDragStart(event, _id, index, listItem)
+                  }
+                >
                   {!isFirst && (
                     <span
                       className='arrow move-left-arrow'
-                      onClick={() => moveItem(_id, id, index, listItem, 'left')}
+                      onClick={() =>
+                        moveItemLeftOrRight(_id, id, index, listItem, 'left')
+                      }
                     >
                       &#10094;
                     </span>
@@ -65,7 +94,7 @@ const Card = ({
                     <span
                       className='arrow move-right-arrow'
                       onClick={() =>
-                        moveItem(_id, id, index, listItem, 'right')
+                        moveItemLeftOrRight(_id, id, index, listItem, 'right')
                       }
                     >
                       &#10095;
@@ -92,21 +121,19 @@ const Card = ({
         </div>
         <p style={{ fontSize: '.5em' }}>Card ID: {_id}</p>
       </div>
-    </React.Fragment>
+    </>
   );
-};
-
-Card.propTypes = {
-  title: PropTypes.string.isRequired,
-  list: PropTypes.array.isRequired
-};
+}
 
 const mapDispatchToProps = dispatch => ({
-  moveItem: (cardId, cardNum, itemId, text, direction) => {
-    dispatch(moveCardListItem(cardId, cardNum, itemId, text, direction));
+  moveItemLeftOrRight: (cardId, cardNum, itemId, text, direction) => {
+    dispatch(
+      moveCardListItemLeftOrRight(cardId, cardNum, itemId, text, direction)
+    );
   },
   removeItem: (cardId, itemId) => dispatch(removeCardListItem(cardId, itemId)),
-  deleteCard: cardId => dispatch(deleteCard(cardId))
+  deleteCard: cardId => dispatch(deleteCard(cardId)),
+  addListItem: (id, desc) => dispatch(addCardListItem({ id: id, desc: desc }))
 });
 
 export default connect(null, mapDispatchToProps)(Card);

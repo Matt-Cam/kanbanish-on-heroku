@@ -1,6 +1,7 @@
 export const getCards = state => state.cards.cards;
 export const getCardsPending = state => state.cards.pending;
 export const getCardsError = state => state.error;
+
 export const findRightSiblingCard = (state, cardNum) => {
   const card = getCards(state).find(c => {
     return c.cardNumber > cardNum;

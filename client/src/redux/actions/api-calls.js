@@ -28,6 +28,7 @@ function removeCardItemFromServer(cardId, itemNum) {
 
 // ADD a list item to one of the cards
 async function addCardListItemToServer(cardId, desc) {
+  console.log('herherherh');
   const response = await fetch(`/api/cards/addListItem/${cardId}`, {
     method: 'POST',
     headers: {

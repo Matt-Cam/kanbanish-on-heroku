@@ -40,9 +40,11 @@ export function fetchCards() {
 
 // Payload should be something like {id: some cardid should align with id from mongo, desc: somedesc}
 export function addCardListItem(payload) {
+  const { id, desc } = payload;
+  console.log('addcardlistitem starting');
   return function(dispatch) {
     try {
-      addCardListItemToServer(payload.id, payload.desc).then(x => {
+      addCardListItemToServer(id, desc).then(x => {
         console.log('addcardlistitem action creator');
         dispatch({ type: ADD_CARD_LIST_ITEM, payload });
       });
@@ -127,19 +129,36 @@ export function addNewCard(title, list) {
     });
   };
 }
-
-// Function called to move list item from one list to another.
-// It dispatches two action creators, one to add and one to remove
-export function moveCardListItem(_id, cardNum, itemId, text, direction) {
+//determine card to pass to based on direction parameter and then pass params through to moveCardListItem action creator
+export function moveCardListItemLeftOrRight(
+  _id,
+  cardNum,
+  itemId,
+  text,
+  direction
+) {
   return function(dispatch, getState) {
-    //let directionInt = direction === 'right' ? 1 : -1;
     let moveToCard =
       direction === 'right'
         ? findRightSiblingCard(getState(), cardNum)
         : findLeftSiblingCard(getState(), cardNum);
     let moveToCardId = moveToCard._id;
+    dispatch(moveCardListItem(_id, cardNum, itemId, text, moveToCardId));
+  };
+}
+
+// Function called to move list item from one list to another.
+// It dispatches two action creators, one to add and one to remove
+export function moveCardListItem(
+  _id,
+  cardNum,
+  itemId,
+  text,
+  _idOfCardToMoveTo
+) {
+  return function(dispatch) {
     try {
-      dispatch(addCardListItem({ id: moveToCardId, desc: text }));
+      dispatch(addCardListItem({ id: _idOfCardToMoveTo, desc: text }));
       dispatch(removeCardListItem(_id, itemId));
     } catch (e) {
       console.log(e);
