@@ -247,6 +247,10 @@ ul li:nth-child(even) {
   background-color: #99b898;
 }
 
+html .can-touch .grabbable:hover {
+  background: none; /* disable hover effect on touch devices */
+}
+
 .beingDraggedOver {
   border: 5px solid #99b898;
 }
