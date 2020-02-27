@@ -1,5 +1,5 @@
 # kanbanish-on-heroku
-An basic app similar to kanban to be fully hosted on heroku (back and frontend). It is developed using the MERN stack.
+An basic app similar to kanban to be fully hosted on heroku (back and frontend). It is developed using the MERN stack. Live site can currently be found at https://kanbanish-in-react.herokuapp.com/. 
 
 Steps to run this locally:
 1) clone to local computer
